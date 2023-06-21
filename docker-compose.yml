@@ -1,0 +1,60 @@
+version: "3"
+
+volumes:
+  db-data:
+
+services:
+  admin:
+    build:
+      context: ./admin/
+      dockerfile: Dockerfile
+    # command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    ports:
+      - '3001:3001'
+    volumes:
+      - './admin:/loto-searcher/admin'
+    environment:
+      - 'DATABASE_PASSWORD=postgres'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    links:
+      - db
+  
+  api:
+    build:
+      context: ./api/
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - './api:/loto-searcher/api'
+    environment:
+      - 'DATABASE_PASSWORD=postgres'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+    volumes:
+      - 'db-data:/var/lib/postgresql/data'
+
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/usr/src/app
+    command: sh -c "cd app yarn && yarn start"
+
+    ports:
+      - "4000:3000"
+    tty: true
