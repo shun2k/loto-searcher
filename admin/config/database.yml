@@ -86,7 +86,7 @@ test:
 production:
   url: <%= postgres://kbfnatwjcuzcxr:09b869bba168bc54bf73c92fdd402a310f3e4a731c4e2c6669cabc19e2c237b1@ec2-3-234-204-26.compute-1.amazonaws.com:5432/dematgtl30hfhh %>
 # production:
-  <<: *default
-  database: admin_production
-  username: admin
-  password: <%= ENV["ADMIN_DATABASE_PASSWORD"] %>
+  # <<: *default
+  # database: admin_production
+  # username: admin
+  # password: <%= ENV["ADMIN_DATABASE_PASSWORD"] %>
