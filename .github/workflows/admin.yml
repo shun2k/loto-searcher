@@ -24,6 +24,7 @@ jobs:
         run: |
           docker-compose exec -T admin rails db:create
           docker-compose exec -T admin rails db:migrate
+          docker-compose exec -T admin rails test
           
 
 
