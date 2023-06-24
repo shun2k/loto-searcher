@@ -12,15 +12,11 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v2
    
-        - name: Set up Heroku
-          uses: akhileshns/heroku-deploy@v3.12.14
-          with:
-            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: "loto-searcher"
-            heroku_email: ${{secrets.HEROKU_EMAIL}} 
+        - name: Login heroku
+          run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com 
         
         - name: build docker
           run: |
-            docker build -t registry.heroku.com/loto-searcher/web -f Dockerfile.prod
-            docker push registry.heroku.com/loto-searcher/web
-            heroku run --app loto-sercher rails db:migrate
+            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin -f Dockerfile.prod .
+            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin
+            heroku run --app ${{secrets.HEROKU_APP_NAME}} rails db:migrate
