@@ -12,6 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
+      - name: Install Docker composer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
       - name: Install docker-compose
         run: docker-compose -f docker-compose-ci.yml up -d
         
