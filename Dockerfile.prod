@@ -12,3 +12,5 @@ COPY Gemfile Gemfile.lock /loto-searcher/admin/
 RUN bundle install
 COPY . .
 CMD [ "rails", "s" ]
+
+EXPOSE 3001
