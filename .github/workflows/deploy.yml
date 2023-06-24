@@ -18,4 +18,9 @@ jobs:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
             heroku_app_name: "loto-searcher"
             heroku_email: ${{secrets.HEROKU_EMAIL}} 
-            usedocker: true
+        
+        - name: build docker
+          run: |
+            docker build -t registry.heroku.com/loto-searcher/web -f Dockerfile.prod
+            docker push registry.heroku.com/loto-searcher/web
+            heroku run --app loto-sercher rails db:migrate
