@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
     postgresql-client \
     yarn
 WORKDIR /loto-searcher/admin
-COPY Gemfile Gemfile.lock ./loto-searcher/admin/
+COPY Gemfile /loto-searcher/admin/
+COPY Gemfile.lock /loto-searcher/admin/
 RUN bundle install
 COPY . .
 CMD [ "rails", "s" ]
