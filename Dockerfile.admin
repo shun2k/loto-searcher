@@ -1,0 +1,16 @@
+#admin用のコンテナ
+FROM ruby:3.1.3 as admin
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    npm \
+    node.js \
+    postgresql-client \
+    yarn
+WORKDIR /loto-searcher/admin
+COPY /admin/Gemfile /admin/Gemfile.lock ./
+RUN bundle install
+COPY . .
+CMD [ "rails", "s" ]
+
