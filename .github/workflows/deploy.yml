@@ -17,9 +17,9 @@ jobs:
 
         - name: Set up Docker build context #build contextにプロジェクトファイルの全てを移動する
           run: |
-            mv admin/* .
-            mv api/* .
-            mv frontend/* .
+            cp -R admin/* .
+            cp -R api/* .
+            cp -R frontend/* .
         
         - name: build and push Docker image
           run: |
