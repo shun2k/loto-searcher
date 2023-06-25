@@ -1,0 +1,4 @@
+#f frontend用コンテナ
+FROM node:16.16.0-alpine as frontend
+WORKDIR /usr/src/app
+
