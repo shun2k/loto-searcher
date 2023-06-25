@@ -25,3 +25,6 @@ jobs:
 
         - name: Deploy to Heroku
           run:  heroku container:release web --app ${{secrets.HEROKU_APP_NAME}}
+        
+        - name: rails migrate
+          run: heroku run --app ${{secrets.HEROKU_APP_NAME}} rails db:migrate
