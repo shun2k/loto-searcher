@@ -15,8 +15,10 @@ jobs:
         - name: Login heroku
           run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com 
 
-        - name: Set up Docker build context
-          run: mv loto-searcher/* .
+        - name: Set up Docker build context #build contextにプロジェクトファイルの全てを移動する
+          run: |
+            mv loto-searcher/* .
+            mv loto-searcher/.dockerignore .
         
         - name: build and push Docker image
           run: |
