@@ -23,9 +23,9 @@ jobs:
         
         - name: build and push Docker image
           run: |
-            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-admin -f Dockerfile.prod .
-            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-api -f Dockerfile.prod .
-            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-frontend -f Dockerfile.prod .
+            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-admin -f Dockerfile.admin .
+            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-api -f Dockerfile.api .
+            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-frontend -f Dockerfile.frontend .
             docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-admin
             docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-api
             docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-frontend
