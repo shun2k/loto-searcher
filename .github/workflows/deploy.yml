@@ -13,7 +13,7 @@ jobs:
           uses: actions/checkout@v2
    
         - name: Login heroku
-          run: docker login -u _ -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com 
+          run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com 
 
         - name: Set up Docker build context #build contextにプロジェクトファイルの全てを移動する
           run: |
@@ -23,6 +23,8 @@ jobs:
         
         - name: build and push Docker image
           run: |
+            heroku login
+            heroku container:login
             docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-admin -f Dockerfile.admin .
             docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-api -f Dockerfile.api .
             docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}-frontend -f Dockerfile.frontend .
