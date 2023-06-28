@@ -38,3 +38,6 @@ jobs:
         
         - name: rails migrate
           run: heroku run --app ${{secrets.HEROKU_APP_NAME}}/admin rails db:migrate
+        
+        - name: rails server
+          run: heroku run --app ${{secrets.HEROKU_APP_NAME}}/admin rails s -p 3001 -b 0.0.0.0
