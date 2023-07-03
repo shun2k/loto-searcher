@@ -8,17 +8,19 @@
 
     <%
 =begin%>
- <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> 
+ <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>  
 <%
 =end%>
     <%
 =begin%>
- <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %> 
+ <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>  
 <%
 =end%>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
