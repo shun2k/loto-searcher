@@ -26,8 +26,8 @@ jobs:
             docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin -f Dockerfile.admin .
             docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/api -f Dockerfile.api .
             docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/frontend -f Dockerfile.frontend .
-            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin
-            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/api
+            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin:latest
+            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/api:latest
             docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/frontend
 
         - name: Deploy to Heroku
