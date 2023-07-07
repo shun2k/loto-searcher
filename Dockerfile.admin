@@ -13,7 +13,5 @@ COPY /admin/Gemfile /admin/Gemfile.lock ./
 RUN bundle install
 COPY . .
 
-EXPOSE 3001
-
 CMD [ "rails", "s", "-p", "3001", "-b", "0.0.0.0" ]
 
