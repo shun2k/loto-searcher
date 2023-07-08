@@ -12,16 +12,22 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v2
    
-        # - name: Login heroku
-        #   run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com 
+        - name: Login heroku
+          run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com 
 
-        # - name: Set up Docker build context #build contextにプロジェクトファイルの全てを移動する
-        #   run: cp -R admin/* .
+        - name: Set up Docker build context #build contextにプロジェクトファイルの全てを移動する
+          run: cp -R admin/* .
         
-        # - name: build and push Docker image
-        #   run: |
-        #     docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin -f Dockerfile.admin .
-        #     docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin:latest
+        - name: build and push Docker image
+          run: |
+            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin -f Dockerfile.admin .
+            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin:latest
+
+        - name: Deploy to Heroku
+          run:  heroku container:release web --app ${{secrets.HEROKU_APP_NAME}}
+
+        - name: rails migrate
+          run: heroku run --app ${{secrets.HEROKU_APP_NAME}}/admin rails db:migrate
 
         # - name: Deploy to heroku AkihileshNS
         #   uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
