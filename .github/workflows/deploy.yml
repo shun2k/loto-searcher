@@ -32,7 +32,7 @@ jobs:
              usedocker: true
              docker_heroku_process_type: web
              appdir: "${{secrets.HEROKU_APP_NAME}}/admin"
-             healthcheck: "https:://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/health"
+            #  healthcheck: "https:://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/health"
                 
         - name: rails migrate
           run: heroku run --app ${{secrets.HEROKU_APP_NAME}}/admin rails db:migrate
