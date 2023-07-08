@@ -23,21 +23,21 @@ jobs:
         #     docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin -f Dockerfile.admin .
         #     docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin:latest
 
-        - name: Deploy to heroku AkihileshNS
-          uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
-          with:
-             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-             heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
-             heroku_email: ${{secrets.HEROKU_EMAIL}}
-             branch: "main"
-             usedocker: true
-             docker_heroku_process_type: "web"
-             appdir: "${{secrets.HEROKU_APP_NAME}}/admin"
-             healthcheck: "https:://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/health"
-             dontuseforce: true
+        # - name: Deploy to heroku AkihileshNS
+        #   uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+        #   with:
+        #      heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        #      heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
+        #      heroku_email: ${{secrets.HEROKU_EMAIL}}
+        #      branch: "main"
+        #      usedocker: true
+        #      docker_heroku_process_type: "web"
+        #      appdir: "${{secrets.HEROKU_APP_NAME}}/admin"
+        #      healthcheck: "https:://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/health"
+        #      dontuseforce: true
                 
-        - name: rails migrate
-          run: heroku run --app ${{secrets.HEROKU_APP_NAME}}/admin rails db:migrate
+        # - name: rails migrate
+        #   run: heroku run --app ${{secrets.HEROKU_APP_NAME}}/admin rails db:migrate
 
   # deploy-api:
   #   runs-on: ubuntu-latest
