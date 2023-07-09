@@ -25,9 +25,10 @@ jobs:
   
         - name: Log in to Heroku Container Registry
           # run: echo ${{secrets.HEROKU_API_KEY}} | docker login -u ${{secrets.HEROKU_USERNAME}} --password-stdin registry.heroku.com
-          run: echo ${{ secrets.HEROKU_API_KEY }} | heroku login -i
+          run: heroku login -i
           env:
-            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+            HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+            HEROKU_PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
 
         - name: Push Docker Images to Heroku
           run: |
@@ -43,6 +44,8 @@ jobs:
           env:
             HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
             HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+            HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+            HEROKU_PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
 
    
         # - name: Login heroku
