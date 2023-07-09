@@ -1,0 +1,16 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+
+build:
+  docker:
+    admin: Dockerfile.admin
+    api: Dockerfile.api
+    frontend: Dockerfile.frontend
+
+release:
+  image: admin
+  command:
+    - bundle exec rails db:migrate
+
