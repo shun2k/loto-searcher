@@ -24,7 +24,7 @@ jobs:
             docker build -t frontend:latest -f Dockerfile.frontend .
   
         - name: Log in to Heroku Container Registry
-          run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com
+          run: echo ${{secrets.HEROKU_EMAIL}} | docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com
   
         - name: Push Docker Images to Heroku
           run: |
