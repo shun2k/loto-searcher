@@ -11,23 +11,49 @@ jobs:
     steps:
         - name: Checkout repository
           uses: actions/checkout@v2
-   
-        - name: Login heroku
-          run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com 
 
-        - name: Set up Docker build context #build contextにプロジェクトファイルの全てを移動する
-          run: cp -R admin/* .
-        
-        - name: build and push Docker image
+        - name: Set up Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: 14
+  
+        - name: Build Docker Images
           run: |
-            docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin -f Dockerfile.admin .
-            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin:latest
-
+            docker build -t admin:latest -f Dockerfile.admin .
+            docker build -t api:latest -f Dockerfile.api .
+            docker build -t frontend:latest -f Dockerfile.frontend .
+  
+        - name: Log in to Heroku Container Registry
+          run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com
+  
+        - name: Push Docker Images to Heroku
+          run: |
+            docker tag admin:latest registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin
+            docker tag api:latest registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/api
+            docker tag frontend:latest registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/frontend
+            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin
+            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/api
+            docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/frontend
+  
         - name: Deploy to Heroku
-          run:  heroku container:release web --app ${{secrets.HEROKU_APP_NAME}}
+          run: heroku container:release -a ${{secrets.HEROKU_APP_NAME}} admin api frontend
+   
+        # - name: Login heroku
+        #   run: docker login -u ${{secrets.HEROKU_USERNAME}} -p ${{secrets.HEROKU_API_KEY}} registry.heroku.com 
 
-        - name: rails migrate
-          run: heroku run --app ${{secrets.HEROKU_APP_NAME}}/admin rails db:migrate
+        # - name: Set up Docker build context #build contextにプロジェクトファイルの全てを移動する
+        #   run: cp -R admin/* .
+        
+        # - name: build and push Docker image
+        #   run: |
+        #     docker build -t registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin -f Dockerfile.admin .
+        #     docker push registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/admin:latest
+
+        # - name: Deploy to Heroku
+        #   run:  heroku container:release web --app ${{secrets.HEROKU_APP_NAME}}
+
+        # - name: rails migrate
+        #   run: heroku run --app ${{secrets.HEROKU_APP_NAME}}/admin rails db:migrate
 
         # - name: Deploy to heroku AkihileshNS
         #   uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
