@@ -3,9 +3,9 @@ setup:
     - plan: heroku-postgresql
       as: DATABASE
 
-# build:
-#   docker:
-#     admin: Dockerfile.admin
+build:
+  docker:
+    admin: Dockerfile.admin
 #     api: Dockerfile.api
 #     frontend: Dockerfile.frontend
 
