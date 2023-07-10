@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install -y \
     node.js \
     postgresql-client \
     yarn
-WORKDIR /api
+WORKDIR /loto-searcher/api
 COPY api/Gemfile api/Gemfile.lock ./
 RUN bundle install
-COPY . /api/
