@@ -5,12 +5,13 @@ setup:
 
 build:
   docker:
-    web: Dockerfile.admin
+    admin: Dockerfile.admin
 #     api: Dockerfile.api
 #     frontend: Dockerfile.frontend
 
 release:
-  image: web
+  image: admin
   command:
     - bundle exec rails db:migrate
+    - bundle exec rails s -p 3.0.0.1 -b 0.0.0.0
 
