@@ -10,3 +10,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /loto-searcher/admin
 COPY Gemfile Gemfile.lock /loto-searcher/admin/
 RUN bundle install
+
+COPY . .
+
+CMD [ "rails", "s", "-p", "3001", "-b", "0.0.0.0" ]
