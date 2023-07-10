@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /admin
 COPY /admin/Gemfile /admin/Gemfile.lock ./
 RUN bundle install
-COPY . .
+COPY . /admin/
 
 CMD [ "rails", "s", "-p", "3001", "-b", "0.0.0.0" ]
 
