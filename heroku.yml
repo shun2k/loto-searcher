@@ -5,9 +5,9 @@ setup:
 
 build:
   docker:
-    admin: Dockerfile.admin
-    api: Dockerfile.api
-    frontend: Dockerfile.frontend
+    web: Dockerfile.admin
+    # api: Dockerfile.api
+    # frontend: Dockerfile.frontend
 
 release:
   image: web
